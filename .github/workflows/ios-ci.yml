@@ -1,0 +1,25 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Check Xcode version
+        run: xcodebuild -version
+
+      - name: Build iOS app
+        run: |
+          xcodebuild build \
+            -project FoodCatelogue.xcodeproj \
+            -scheme FoodCatelogue \
+            -destination 'generic/platform=iOS Simulator'
